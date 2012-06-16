@@ -12,6 +12,7 @@
 namespace Opl\Collector;
 use Opl\Collector\Exception\InvalidKeyException;
 use Opl\Collector\Exception\UnexpectedScalarException;
+use Opl\Collector\Exception\KeyReadOnlyException;
 
 /**
  * This is a default implementation of the data provider. It provides the
@@ -22,7 +23,7 @@ use Opl\Collector\Exception\UnexpectedScalarException;
  * @copyright Invenzzia Group <http://www.invenzzia.org/> and contributors.
  * @license http://www.invenzzia.org/license/new-bsd New BSD License
  */
-class Provider implements ProviderInterface
+class Provider implements ProviderInterface, ArrayAccess
 {
 	/**
 	 * The stored data, in a form of tree.
@@ -112,4 +113,24 @@ class Provider implements ProviderInterface
 		}
 		return $data;
 	} // end findKey();
+
+	public function offsetExists($offset)
+	{
+		return isset($this->data[$offset]);
+	}
+
+	public function offsetGet($offset)
+	{
+		$this->get($offset, self::THROW_NULL);
+	}
+
+	public function offsetSet($offset, $value)
+	{
+		throw new KeyReadOnlyException('Collectors data is ReadOnly');
+	}
+
+	public function offsetUnset($offset)
+	{
+		throw new KeyReadOnlyException('Collectors data is ReadOnly');
+	}
 } // end Provider;
