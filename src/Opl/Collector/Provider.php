@@ -23,7 +23,7 @@ use Opl\Collector\Exception\KeyReadOnlyException;
  * @copyright Invenzzia Group <http://www.invenzzia.org/> and contributors.
  * @license http://www.invenzzia.org/license/new-bsd New BSD License
  */
-class Provider implements ProviderInterface, ArrayAccess
+class Provider implements ProviderInterface, \ArrayAccess
 {
 	/**
 	 * The stored data, in a form of tree.
