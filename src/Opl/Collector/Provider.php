@@ -75,6 +75,16 @@ class Provider implements ProviderInterface, \ArrayAccess
 	} // end get();
 
 	/**
+	 * @param string $key The value key.
+	 * @param int $errorReporting How to report the errors about missing key?
+	 * @return mixed
+	 */
+	public function getArray($key, $errorReporting = self::THROW_EXCEPTION)
+	{
+		return $this->get($key, $errorReporting)->data;
+	}
+	
+	/**
 	 * An internal method for translating the key to the parts.
 	 * 
 	 * @param string $key The value key.
