@@ -35,9 +35,10 @@ class HostLoader implements LoaderInterface
 		}
 
 		return array(
-			'ip' => $_SERVER['REMOTE_ADDR'],
-			'binaryIp' => inet_pton($_SERVER['REMOTE_ADDR']),
-			'ipVersion' => $protocol
+			'ip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'not-set',
+			'binaryIp' => isset($_SERVER['REMOTE_ADDR']) ? inet_pton($_SERVER['REMOTE_ADDR']) : inet_pton("0.0.0.0"),
+			'ipVersion' => $protocol,
+			'userAgent' => isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'not-set'
 		);
 	} // end import();
 } // end HostCollector;

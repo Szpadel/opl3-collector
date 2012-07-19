@@ -40,8 +40,10 @@ class ConnectionLoader implements LoaderInterface
 
 		return array(
 			'port' => $_SERVER['SERVER_PORT'],
-			'isSecure' => $_SERVER['SERVER_PORT'] == 443,
+			'isSecure' => ($_SERVER['SERVER_PORT'] == 443),
 			'method' => $_SERVER['REQUEST_METHOD'],
+			'serverName' => isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '',
+			'protocolVersion' => isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'not-set',
 			'protocol' => $protocol
 		);
 	} // end import();
